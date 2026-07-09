@@ -173,6 +173,11 @@ rdflib.term.BNode('N13ec427732a2411299d42104094d0af3')
 Install development requirements  
 ```$ pip install . --group dev```
 
+Configure Django
+```
+$ cp ci/testsettings.py .
+$ python -c "from django.core.mangement.utils import get_random_secret_key; print('SECRET_KEY = '\%s\'' % get_random_secret_key())" >> testsettings.py
+
 Run tests with pytest  
 ```$ python -m pytest```
 
