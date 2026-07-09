@@ -26,6 +26,8 @@ loc-authorities uses the python library rdflib to query Library of Congress enti
 
 There are no plans to support further authorities at this point in time, but pull requests for implementations of other authorities are welcome!
 
+This implementation provides dummy containers for Temporal and Complex subject entities. Many of these components are valid but have not yet been indexed in the Library of Congress API. This means they lack URIs and cannot be validated via the Library of Congress API. These classes implement minimal RDF with basic metadata.
+
 ## Installation
 
 Via pip into virtual environment
@@ -106,6 +108,38 @@ rdflib.term.Literal('German literature--Germany (East)', lang='en') # inherits a
 >>> subject.components
 [<loc_authorities.api.SubjectEntity object at 0x0000025AF492B810>, <loc_authorities.api.NameEntity object at 0x0000025AF492A990>]
 
+# Represent an entity with an unindexed temporal component
+>>>
+>>> from loc_authorities.api import SubjectEntity
+>>> subject = SubjectEntity('sh93000006')
+>>> subject.authoritative_label
+rdflib.term.Literal('Costa Rica--History--1986-', lang='en')
+>>> subject.components
+[<loc_authorities.api.NameEntity object at 0x000001D224378D40>, <loc_authorities.api.SubjectEntity object at 0x000001D224379430>, <loc_authorities.api.TemporalEntity object at 0x000001D22412D370>]
+>>> temporal = subject.components[2]
+>>> temporal.authoritative_label
+rdflib.term.Literal('1986-', lang='en')
+>>> temporal.instance_of
+[rdflib.term.URIRef('http://www.loc.gov/mads/rdf/v1#Temporal'), rdflib.term.URIRef('http://www.loc.gov/mads/rdf/v1#Authority')]
+>>> print(temporal.dataset_uriref)
+None
+
+# Represent a valid but unindexed complex entity
+>>> from loc_authorities.api import DummyComplexEntity
+# initialize the component from a list of identifiers
+# Use plain strings for unindexed temporal components
+>>> subject = DummyComplexEntity(['sh85003744', 'n79022911-781', '1733'])
+# dummy entities have many, but not all, characteristics of subject entities
+>>> subject.authoritative_label
+rdflib.term.Literal('Almanacs--Pennsylvania--1733', lang='en')
+>>> subject.instance_of
+[rdflib.term.URIRef('http://www.loc.gov/mads/rdf/v1#ComplexSubject'), rdflib.term.URIRef('http://www.loc.gov/mads/rdf/v1#Authority')]
+>>> subject.components
+[<loc_authorities.api.SubjectEntity object at 0x000001D2244AB050>, <loc_authorities.api.NameEntity object at 0x000001D2244AAD20>, <loc_authorities.api.TemporalEntity object at 0x000001D2244AB950>]
+# Dummy subjects take a rdflib.BNode as their identifier
+# This persists during the session, but not across sessions
+>>> subject.dataset_uriref
+rdflib.term.BNode('N13ec427732a2411299d42104094d0af3')
 ```
 
 ## Running tests
@@ -114,10 +148,11 @@ Install development requirements
 ```$ pip install . --group dev```
 
 Run tests with pytest  
-```$ python -m pytest --cov --cov-report=html:calc_cov```  
+```$ python -m pytest```
 
 Run tests and produce HTML coverage report
-```$ python -m pytest 
+
+```$ python -m pytest --cov --cov-report=html:calc_cov``` 
 
 ## Build documentation
 

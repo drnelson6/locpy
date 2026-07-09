@@ -11,7 +11,9 @@ from loc_authorities.api import (
     SRUItem,
     LocEntity,
     NameEntity,
+    TemporalEntity,
     SubjectEntity,
+    DummyComplexEntity,
     SRUResult,
 )
 
@@ -300,6 +302,29 @@ class TestNameEntity(object):
         assert NameEntity.year_from_edtf('0213~') == 213
 
 
+class TestTemporalEntity(object):
+    label = '1986-'
+    ent = TemporalEntity(label)
+
+    def test_authoritative_label(self):
+        assert str(self.ent.authoritative_label) == '1986-'
+
+    def test_null_properties(self):
+        assert self.ent.uriref is None
+        assert self.ent.dataset_uriref is None
+        assert self.ent.scheme_membership is None
+
+    def test_instance_of(self):
+        # instances is formed from ent.rdf, so this is implicitly a test for
+        # whether the rdf is correctly parsed
+        test_instances = [
+            'http://www.loc.gov/mads/rdf/v1#Temporal',
+            'http://www.loc.gov/mads/rdf/v1#Authority',
+        ]
+        instances = [str(i) for i in self.ent.instance_of]
+        assert set(test_instances) == set(instances)
+
+
 class TestSubjectEntity(object):
     def test_complex_entity(self):
         # Complex entities can have components that are either
@@ -326,6 +351,122 @@ class TestSubjectEntity(object):
 
         with patch.object(SubjectEntity, 'rdf', new=test_rdf):
             assert ent.components is None
+
+    def test_complex_entity_with_time(self):
+        # Complex entities can have time components that do not have
+        # URIs
+
+        rdf_fixture = os.path.join(FIXTURES_PATH, 'sh93000006.rdf')
+
+        ent = SubjectEntity('sh93000006')
+        test_rdf = rdflib.Graph()
+        test_rdf.parse(rdf_fixture)
+
+        with patch.object(SubjectEntity, 'rdf', new=test_rdf):
+            assert len(ent.components) == 3
+            names = [isinstance(c, NameEntity) for c in ent.components]
+            subjects = [isinstance(c, SubjectEntity) for c in ent.components]
+            temporal = [isinstance(c, TemporalEntity) for c in ent.components]
+            assert names.count(True) == 1
+            assert subjects.count(True) == 1
+            assert temporal.count(True) == 1
+
+
+class TestDummyComplexEntity(object):
+    component_ids = [
+        'sh85048256',
+        'n79006404-781',
+        'sh99005024',
+        'sh2002012474',
+        'sh2002012010',
+    ]
+    ent = DummyComplexEntity(component_ids)
+
+    def test_dummy_complex_entity(self):
+        """Assert possible to make representation for following label:
+        Finance--France--History--18th century--Sources
+        """
+        target_label = rdflib.Literal(
+            'Finance--France--History--18th century--Sources', lang='en'
+        )
+        assert self.ent.authoritative_label == target_label
+
+    def test_null_properties(self):
+        assert self.ent.uriref is None
+        assert self.ent.scheme_membership is None
+
+    def test_dataset_uriref(self):
+        assert isinstance(self.ent.dataset_uriref, rdflib.BNode)
+
+    def test_rdf(self):
+        # since we construct RDF ourselves, there should never be more than one label
+        label = list(
+            self.ent.rdf.objects(
+                self.ent.dataset_uriref,
+                rdflib.URIRef('http://www.loc.gov/mads/rdf/v1#authoritativeLabel'),
+            )
+        )[0]
+        assert label == self.ent.authoritative_label
+
+        # test components
+        component_uris = []
+        c_bnode = self.ent.rdf.value(
+            self.ent.dataset_uriref,
+            rdflib.URIRef('http://www.loc.gov/mads/rdf/v1#componentList'),
+        )
+        components_rdf = rdflib.collection.Collection(self.ent.rdf, c_bnode)
+        for c in components_rdf:
+            component_uris.append(c)
+        target_labels = sorted(
+            [
+                rdflib.URIRef('http://id.loc.gov/authorities/subjects/sh85048256'),
+                rdflib.URIRef('http://id.loc.gov/authorities/names/n79006404-781'),
+                rdflib.URIRef('http://id.loc.gov/authorities/subjects/sh99005024'),
+                rdflib.URIRef('http://id.loc.gov/authorities/subjects/sh2002012474'),
+                rdflib.URIRef('http://id.loc.gov/authorities/subjects/sh2002012010'),
+            ]
+        )
+        assert target_labels == sorted(component_uris)
+
+    def test_instance_of(self):
+        # instances is formed from ent.rdf, so this is implicitly a test for
+        # whether the rdf is correctly parsed
+        test_instances = [
+            'http://www.loc.gov/mads/rdf/v1#ComplexSubject',
+            'http://www.loc.gov/mads/rdf/v1#Authority',
+        ]
+        instances = [str(i) for i in self.ent.instance_of]
+        assert set(test_instances) == set(instances)
+
+    def test_dummy_complex_entity_with_temporal_element(self):
+        """Assert non-indexed temporal entities are represented"""
+        component_ids = ['sh85003744', 'n79022911-781', '1733']
+        dummy_entity = DummyComplexEntity(component_ids)
+        target_label = rdflib.Literal('Almanacs--Pennsylvania--1733', lang='en')
+        assert dummy_entity.authoritative_label == target_label
+
+        component_uris = []
+        c_bnode = dummy_entity.rdf.value(
+            dummy_entity.dataset_uriref,
+            rdflib.URIRef('http://www.loc.gov/mads/rdf/v1#componentList'),
+        )
+        components_rdf = rdflib.collection.Collection(dummy_entity.rdf, c_bnode)
+        for c in components_rdf:
+            component_uris.append(c)
+        component_labels = []
+        for c in component_uris:
+            label = dummy_entity.rdf.value(
+                c, rdflib.URIRef('http://www.loc.gov/mads/rdf/v1#authoritativeLabel')
+            )
+            component_labels.append(label)
+        target_labels = sorted(
+            [
+                rdflib.Literal('Almanacs', lang='en'),
+                rdflib.Literal('Pennsylvania'),
+                rdflib.Literal('1733', lang='en'),
+            ]
+        )
+        assert target_labels == sorted(component_labels)
 
 
 def test_sru_result():

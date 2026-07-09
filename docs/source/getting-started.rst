@@ -53,9 +53,9 @@ loc_authorities provides support for querying the `"suggest" API" <https://id.lo
 
     >>> search = loc.search('Benjamin Franklin', authority='names')
     >>> search[0].uri
-    'http://id.loc.gov/authorities/names/nr91002273'
+    'http://id.loc.gov/authorities/names/n79043402'
     >>> search[0].label
-    'Joslin, Benjamin F. (Benjamin Franklin), 1796-1861'
+    'Franklin, Benjamin, 1706-1790'
 
 loc_authorities provides python classes that can represent single entities from the Linked Data Service
 
@@ -97,3 +97,34 @@ Complex topics list their components as instances of either :class:`NameEntity` 
     rdflib.term.Literal('German literature--Germany (East)', lang='en')
     >>> [type(s) for s in subject.components]
     [<class 'loc_authorities.api.SubjectEntity'>, <class 'loc_authorities.api.NameEntity'>]
+
+Complex topics can contain temporal subjects that are valid but not yet indexed by Library of Congress. These entities have no URI and cannot be validated against the Library of Congress API, nor can we access RDF provided by the API. In these cases, we provide a dummy class :class:`TemporalEntity` to represent these as minimal RDF.
+
+.. doctest::
+
+    >>> from loc_authorities.api import SubjectEntity
+    >>> subject = SubjectEntity('sh93000006')
+    >>> subject.authoritative_label
+    rdflib.term.Literal('Costa Rica--History--1986-', lang='en')
+    >>> [type(s) for s in subject.components]
+    [<class 'loc_authorities.api.NameEntity'>, <class 'loc_authorities.api.SubjectEntity'>, <class 'loc_authorities.api.TemporalEntity'>]
+    >>> temporal = subject.components[2]
+    >>> temporal.authoritative_label
+    rdflib.term.Literal('1986-', lang='en')
+    >>> temporal.instance_of
+    [rdflib.term.URIRef('http://www.loc.gov/mads/rdf/v1#Temporal'), rdflib.term.URIRef('http://www.loc.gov/mads/rdf/v1#Authority')]
+
+For complex topics that do not currently have identifiers in the Library of Congress Linked Data Service but are nonetheless valid, the class :class:`DummyComplexEntity` is provided.
+
+.. doctest::
+
+    >>> from loc_authorities.api import DummyComplexEntity
+    >>> subject = DummyComplexEntity(['sh85003744', 'n79022911-781', '1733'])
+    >>> subject.authoritative_label
+    rdflib.term.Literal('Almanacs--Pennsylvania--1733', lang='en')
+    >>> subject.instance_of
+    [rdflib.term.URIRef('http://www.loc.gov/mads/rdf/v1#ComplexSubject'), rdflib.term.URIRef('http://www.loc.gov/mads/rdf/v1#Authority')]
+    >>> [type(s) for s in subject.components]
+    [<class 'loc_authorities.api.SubjectEntity'>, <class 'loc_authorities.api.NameEntity'>, <class 'loc_authorities.api.TemporalEntity'>]
+    >>> type(subject.dataset_uriref)
+    <class 'rdflib.term.BNode'>

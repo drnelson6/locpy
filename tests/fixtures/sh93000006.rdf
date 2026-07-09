@@ -1,0 +1,92 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:bf="http://id.loc.gov/ontologies/bibframe/" xmlns:bflc="http://id.loc.gov/ontologies/bflc/" xmlns:owl="http://www.w3.org/2002/07/owl#" xmlns:skos="http://www.w3.org/2004/02/skos/core#" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:cc="http://creativecommons.org/ns#" xmlns:foaf="http://xmlns.com/foaf/0.1/">
+  <madsrdf:ComplexSubject rdf:about="http://id.loc.gov/authorities/subjects/sh93000006" xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">
+    <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#Authority"/>
+    <madsrdf:authoritativeLabel xml:lang="en">Costa Rica--History--1986-</madsrdf:authoritativeLabel>
+    <madsrdf:componentList rdf:parseType="Collection">
+      <madsrdf:Geographic rdf:about="http://id.loc.gov/rwo/agents/n79070075">
+	<rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#Authority"/>
+	<madsrdf:authoritativeLabel>Costa Rica</madsrdf:authoritativeLabel>
+	<madsrdf:authoritativeLabel xml:lang="ko-hang">코스타리카</madsrdf:authoritativeLabel>
+	<madsrdf:authoritativeLabel xml:lang="und-hebr">קוסטה ריקה</madsrdf:authoritativeLabel>
+	<madsrdf:authoritativeLabel xml:lang="und-cyrl">Коста-Рика</madsrdf:authoritativeLabel>
+	<madsrdf:authoritativeLabel xml:lang="und-grek">Κόστα Ρίκα</madsrdf:authoritativeLabel>
+	<madsrdf:code rdf:datatype="http://id.loc.gov/datatypes/codes/gac">nccr---</madsrdf:code>
+      </madsrdf:Geographic>
+      <madsrdf:Topic rdf:about="http://id.loc.gov/authorities/subjects/sh99005024">
+	<rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#Authority"/>
+	<madsrdf:authoritativeLabel xml:lang="en">History</madsrdf:authoritativeLabel>
+      </madsrdf:Topic>
+      <madsrdf:Temporal>
+	<rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#Authority"/>
+	<madsrdf:authoritativeLabel xml:lang="en">1986-</madsrdf:authoritativeLabel>
+	<madsrdf:elementList rdf:parseType="Collection">
+	  <madsrdf:TemporalElement>
+	    <madsrdf:elementValue xml:lang="en">1986-</madsrdf:elementValue>
+	  </madsrdf:TemporalElement>
+	</madsrdf:elementList>
+      </madsrdf:Temporal>
+    </madsrdf:componentList>
+    <bflc:marcKey>151 0$aCosta Rica$xHistory$y1986-</bflc:marcKey>
+    <madsrdf:hasSource>
+      <madsrdf:Source>
+	<madsrdf:citationStatus>found</madsrdf:citationStatus>
+	<madsrdf:citationSource>Work cat.: 92-234625: Boggs, H. Casada con una leyenda, 1992.</madsrdf:citationSource>
+      </madsrdf:Source>
+    </madsrdf:hasSource>
+    <identifiers:lccn xmlns:identifiers="http://id.loc.gov/vocabulary/identifiers/">sh 93000006</identifiers:lccn>
+    <madsrdf:isMemberOfMADSCollection rdf:resource="http://id.loc.gov/authorities/subjects/collection_LCSHAuthorizedHeadings"/>
+    <madsrdf:isMemberOfMADSScheme rdf:resource="http://id.loc.gov/authorities/subjects"/>
+    <madsrdf:isMemberOfMADSCollection rdf:resource="http://id.loc.gov/authorities/subjects/collection_LCSH_General"/>
+    <owl:sameAs rdf:resource="info:lc/authorities/sh93000006"/>
+    <owl:sameAs rdf:resource="http://id.loc.gov/authorities/sh93000006#concept"/>
+    <madsrdf:adminMetadata>
+      <ri:RecordInfo xmlns:ri="http://id.loc.gov/ontologies/RecordInfo#">
+	<ri:recordChangeDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1993-01-04T00:00:00</ri:recordChangeDate>
+	<ri:recordStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">new</ri:recordStatus>
+	<ri:recordContentSource>
+	  <madsrdf:CorporateName rdf:about="http://id.loc.gov/vocabulary/organizations/dlc">
+	    <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#Authority"/>
+	    <madsrdf:authoritativeLabel>United States, Library of Congress</madsrdf:authoritativeLabel>
+	    <madsrdf:code rdf:datatype="http://id.loc.gov/datatypes/orgs/code">DLC</madsrdf:code>
+	    <madsrdf:code rdf:datatype="http://id.loc.gov/datatypes/orgs/normalized">dlc</madsrdf:code>
+	    <madsrdf:code rdf:datatype="http://id.loc.gov/datatypes/orgs/iso15511">US-dlc</madsrdf:code>
+	  </madsrdf:CorporateName>
+	</ri:recordContentSource>
+      </ri:RecordInfo>
+    </madsrdf:adminMetadata>
+    <madsrdf:adminMetadata>
+      <ri:RecordInfo xmlns:ri="http://id.loc.gov/ontologies/RecordInfo#">
+	<ri:recordChangeDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1993-02-04T14:34:02</ri:recordChangeDate>
+	<ri:recordStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">revised</ri:recordStatus>
+	<ri:recordContentSource>
+	  <madsrdf:CorporateName rdf:about="http://id.loc.gov/vocabulary/organizations/dlc">
+	    <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#Authority"/>
+	    <madsrdf:authoritativeLabel>United States, Library of Congress</madsrdf:authoritativeLabel>
+	    <madsrdf:code rdf:datatype="http://id.loc.gov/datatypes/orgs/code">DLC</madsrdf:code>
+	    <madsrdf:code rdf:datatype="http://id.loc.gov/datatypes/orgs/normalized">dlc</madsrdf:code>
+	    <madsrdf:code rdf:datatype="http://id.loc.gov/datatypes/orgs/iso15511">US-dlc</madsrdf:code>
+	  </madsrdf:CorporateName>
+	</ri:recordContentSource>
+      </ri:RecordInfo>
+    </madsrdf:adminMetadata>
+    <rdf:type rdf:resource="http://www.w3.org/2004/02/skos/core#Concept"/>
+    <skos:prefLabel xml:lang="en">Costa Rica--History--1986-</skos:prefLabel>
+    <skos:inScheme rdf:resource="http://id.loc.gov/authorities/subjects"/>
+    <skos:changeNote>
+      <cs:ChangeSet xmlns:cs="http://purl.org/vocab/changeset/schema#">
+	<cs:subjectOfChange rdf:resource="http://id.loc.gov/authorities/subjects/sh93000006"/>
+	<cs:creatorName>United States, Library of CongressDLCdlcUS-dlc</cs:creatorName>
+	<cs:createdDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1993-01-04T00:00:00</cs:createdDate>
+	<cs:changeReason rdf:datatype="http://www.w3.org/2001/XMLSchema#string">new</cs:changeReason>
+      </cs:ChangeSet>
+    </skos:changeNote>
+    <skos:changeNote>
+      <cs:ChangeSet xmlns:cs="http://purl.org/vocab/changeset/schema#">
+	<cs:subjectOfChange rdf:resource="http://id.loc.gov/authorities/subjects/sh93000006"/>
+	<cs:creatorName>United States, Library of CongressDLCdlcUS-dlc</cs:creatorName>
+	<cs:createdDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1993-02-04T14:34:02</cs:createdDate>
+	<cs:changeReason rdf:datatype="http://www.w3.org/2001/XMLSchema#string">revised</cs:changeReason>
+      </cs:ChangeSet>
+    </skos:changeNote>
+  </madsrdf:ComplexSubject>
+</rdf:RDF>

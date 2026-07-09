@@ -1,6 +1,6 @@
 [project]
 name = "loc-authorities"
-version = "0.2.0"
+version = "0.3.0"
 description = "Python module for interacting with Library of Congress Linked Data Service and API endpoint"
 authors = [
     {name = "Center for Digital Scholarship at the American Philosophical Society", email = "cds@amphilsoc.org"},
