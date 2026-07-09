@@ -26,7 +26,7 @@ loc-authorities uses the python library rdflib to query Library of Congress enti
 
 There are no plans to support further authorities at this point in time, but pull requests for implementations of other authorities are welcome!
 
-This implementation provides dummy containers for Temporal and Complex subject entities that are valid but do not have identifiers. These implement minimal RDF with basic metadata.
+This implementation provides dummy containers for Temporal and Complex subject entities. Many of these components are valid but have not yet been indexed in the Library of Congress API. This means they lack URIs and cannot be validated via the Library of Congress API. These classes implement minimal RDF with basic metadata.
 
 ## Installation
 
