@@ -1,5 +1,5 @@
 from rdflib import Namespace
-from urllib.parse import urljoin
+from urllib.parse import urljoin, quote
 from functools import cached_property
 from typing import Literal
 
@@ -171,7 +171,8 @@ class LocAPI(object):
                 - names
                 - genreForms
                 """)
-        query_url = urljoin(base_url, label)
+        escaped_label = quote(label)
+        query_url = urljoin(base_url, escaped_label)
         response = requests.get(query_url, allow_redirects=False)
         # successful query should return a redirect
         if response.status_code == 302:

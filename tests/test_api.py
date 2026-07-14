@@ -104,7 +104,22 @@ class TestLocAPI(object):
 
         loc.retrieve_label('Franklin, Benjamin, 1706-1790', authority='names')
         mockrequests.get.assert_called_with(
-            'https://id.loc.gov/authorities/names/label/Franklin, Benjamin, 1706-1790',
+            'https://id.loc.gov/authorities/names/label/Franklin%2C%20Benjamin%2C%201706-1790',
+            allow_redirects=False,
+        )
+
+        escape_headers = {
+            'location': 'https://id.loc.gov/authorities/names/n79072794',
+            'x-uri': 'http://id.loc.gov/authorities/names/n79072794',
+            'x-preflabel': 'Sequoyah, 1770?-1843'
+        }
+
+        mock_response.headers = escape_headers
+
+        assert loc.retrieve_label('Sequoyah, 1770?-1843', authority='names') == 'n79072794'
+        loc.retrieve_label('Sequoyah, 1770?-1843', authority='names')
+        mockrequests.get.assert_called_with(
+            'https://id.loc.gov/authorities/names/label/Sequoyah%2C%201770%3F-1843',
             allow_redirects=False,
         )
 
