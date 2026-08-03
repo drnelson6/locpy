@@ -104,7 +104,28 @@ class TestLocAPI(object):
 
         loc.retrieve_label('Franklin, Benjamin, 1706-1790', authority='names')
         mockrequests.get.assert_called_with(
-            'https://id.loc.gov/authorities/names/label/Franklin, Benjamin, 1706-1790',
+            'https://id.loc.gov/authorities/names/label/Franklin%2C%20Benjamin%2C%201706-1790',
+            allow_redirects=False,
+        )
+
+        escape_headers = {
+            'location': 'https://id.loc.gov/authorities/names/no2013089075',
+            'x-uri': 'http://id.loc.gov/authorities/names/no2013089075',
+            'x-preflabel': 'Simon, Claude-François, 1710?-1767',
+        }
+
+        mock_response.headers = escape_headers
+
+        assert (
+            loc.retrieve_label('Simon, Claude-François, 1710?-1767', authority='names')
+            == 'no2013089075'
+        )
+        loc.retrieve_label('Simon, Claude-François, 1710?-1767', authority='names')
+        mockrequests.get.assert_called_with(
+            (
+                'https://id.loc.gov/authorities/names/label/Simon%2C%20Claude-Fran%C3%A7ois'
+                '%2C%201710%3F-1767'
+            ),
             allow_redirects=False,
         )
 
