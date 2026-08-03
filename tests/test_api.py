@@ -109,19 +109,23 @@ class TestLocAPI(object):
         )
 
         escape_headers = {
-            'location': 'https://id.loc.gov/authorities/names/n79072794',
-            'x-uri': 'http://id.loc.gov/authorities/names/n79072794',
-            'x-preflabel': 'Sequoyah, 1770?-1843',
+            'location': 'https://id.loc.gov/authorities/names/no2013089075',
+            'x-uri': 'http://id.loc.gov/authorities/names/no2013089075',
+            'x-preflabel': 'Simon, Claude-François, 1710?-1767',
         }
 
         mock_response.headers = escape_headers
 
         assert (
-            loc.retrieve_label('Sequoyah, 1770?-1843', authority='names') == 'n79072794'
+            loc.retrieve_label('Simon, Claude-François, 1710?-1767', authority='names')
+            == 'no2013089075'
         )
-        loc.retrieve_label('Sequoyah, 1770?-1843', authority='names')
+        loc.retrieve_label('Simon, Claude-François, 1710?-1767', authority='names')
         mockrequests.get.assert_called_with(
-            'https://id.loc.gov/authorities/names/label/Sequoyah%2C%201770%3F-1843',
+            (
+                'https://id.loc.gov/authorities/names/label/Simon%2C%20Claude-Fran%C3%A7ois'
+                '%2C%201710%3F-1767'
+            ),
             allow_redirects=False,
         )
 
