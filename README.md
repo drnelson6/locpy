@@ -171,7 +171,7 @@ rdflib.term.BNode('N13ec427732a2411299d42104094d0af3')
 ## Running tests
 
 Install development requirements  
-```$ pip install . --group dev```
+```$ pip install .[dev]```
 
 Configure Django
 ```
@@ -188,7 +188,7 @@ Run tests and produce HTML coverage report
 ## Build documentation
 
 Install development requirements
-```$ pip install . --group dev```
+```$ pip install .[dev]```
 
 Run doctest to make sure the code examples work
 ```$ make -C docs doctest```
