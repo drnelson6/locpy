@@ -98,7 +98,7 @@ Complex topics list their components as instances of either :class:`NameEntity` 
     >>> [type(s) for s in subject.components]
     [<class 'loc_authorities.api.SubjectEntity'>, <class 'loc_authorities.api.NameEntity'>]
 
-Complex topics can contain unindexed temporal entities. In these cases, we provide a dummy class :class:`TemporalEntity` to represent these as minimal RDF.
+Complex topics can contain temporal subjects that are valid but not yet indexed by Library of Congress. These entities have no URI and cannot be validated against the Library of Congress API, nor can we access RDF provided by the API. In these cases, we provide a dummy class :class:`TemporalEntity` to represent these as minimal RDF.
 
 .. doctest::
 
