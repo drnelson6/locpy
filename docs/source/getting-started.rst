@@ -4,7 +4,7 @@ Getting Started
 Installation
 ------------
 
-Install loc_authorities into a virtual environment with pip:
+Install :code:`loc_authorities` into a virtual environment with pip:
 
 .. code-block:: console
 
@@ -19,7 +19,7 @@ Alternatively, install with uv:
 Basic Usage
 -----------
 
-loc_authorities can be used to construct URIs from known identifiers
+:code:`loc_authorities` can be used to construct URIs from known identifiers
 
 .. doctest::
 
@@ -37,7 +37,7 @@ You can also retrieve an identifier if you know the label
     >>> loc.retrieve_label('Franklin, Benjamin, 1706-1790')
     'n79043402'
 
-loc_authorities provides support for querying the `"suggest" API" <https://id.loc.gov/views/pages/swagger-api-docs/index.html#suggest-service-2.json>`_ provided by the Library of Congress. This performs a left-anchored search and will retrieve entries that start with the same character sequence as your query.
+:code:`loc_authorities` provides support for querying the `"suggest" API" <https://id.loc.gov/views/pages/swagger-api-docs/index.html#suggest-service-2.json>`_ provided by the Library of Congress. This performs a left-anchored search and will retrieve entries that start with the same character sequence as your query.
 
 .. doctest::
 
@@ -57,7 +57,7 @@ loc_authorities provides support for querying the `"suggest" API" <https://id.lo
     >>> search[0].label
     'Franklin, Benjamin, 1706-1790'
 
-loc_authorities provides python classes that can represent single entities from the Linked Data Service
+:code:`loc_authorities` provides python classes that can represent single entities from the Linked Data Service
 
 .. doctest::
 
