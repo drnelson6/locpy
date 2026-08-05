@@ -1,6 +1,13 @@
 Django Integration
 ==================
 
+Usage in Django
+---------------
+
+:code:`loc_authorities` provides a minimal Django integration that enables a lookup field in forms. This can be used either in the Django admin or in your own form. Intentionally, the integration only affects form behavior. Integration with model fields is left up to the user.
+
+The form field autocomplete will display the authoritative label as retrieved from the Library of Congress API. When the user selects a label, it will populate to the form field as the URI. The model field used should therefore be capable of storing the URI (e.g. :code:`CharField`, :code:`URIField` with the appropriate transformation). If you want to save both the label and the URI to the database, you could use the API features of :code:`loc_authorities` to retrieve the label and save it to another field through, for instance, a custom save method. This could be applied to any other property, including those retrieved via :code:`LocEntity.rdf`.
+
 Installation and Configuration
 ------------------------------
 
@@ -27,10 +34,11 @@ To use :code:`loc_authorities` with Django, you must add :code:`loc_authorities`
         'dal',
         'dal_alight',
         'loc_authorities',
+        'django.contrib.admin',
         ...
     ]
 
-Include the :code`loc-authorities` URLs at the preferred base URL:
+Include the :code`loc-authorities` URLs at the preferred base URL in :code:`urls.py`:
 
 .. code-block:: python
 
