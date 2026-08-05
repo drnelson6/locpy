@@ -363,8 +363,7 @@ test = [
 
 [package.dev-dependencies]
 dev = [
-    { name = "django", version = "5.2.15", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version < '3.12'" },
-    { name = "django", version = "6.0.6", source = { registry = "https://pypi.org/simple" }, marker = "python_full_version >= '3.12'" },
+    { name = "loc-authorities", extra = ["dev"] },
 ]
 
 [package.metadata]
@@ -388,7 +387,7 @@ requires-dist = [
 provides-extras = ["test", "django", "django-test", "docs", "dev"]
 
 [package.metadata.requires-dev]
-dev = [{ name = "django", extras = ["dev"] }]
+dev = [{ name = "loc-authorities", extras = ["dev"] }]
 
 [[package]]
 name = "markupsafe"

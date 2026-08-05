@@ -176,7 +176,7 @@ Install development requirements
 Configure Django
 ```
 $ cp ci/testsettings.py .
-$ python -c "from django.core.mangement.utils import get_random_secret_key; print('SECRET_KEY = '\%s\'' % get_random_secret_key())" >> testsettings.py
+$ python -c "from django.core.management.utils import get_random_secret_key; print('SECRET_KEY = \'%s\'' % get_random_secret_key())" >> testsettings.py
 
 Run tests with pytest  
 ```$ python -m pytest```
